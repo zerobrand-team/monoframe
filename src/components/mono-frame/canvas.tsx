@@ -43,15 +43,17 @@ export function Canvas({
         <div
           className="absolute inset-0 flex items-center justify-center p-4"
         >
-          <div className="relative w-full h-full">
+          <div
+            className="relative w-full h-full overflow-hidden"
+            style={{
+              borderRadius: `${radius}px`,
+            }}
+          >
             <Image
               src={foregroundImage}
               alt="Foreground"
               fill
               className="object-contain"
-              style={{
-                borderRadius: `${radius}px`,
-              }}
             />
           </div>
         </div>
