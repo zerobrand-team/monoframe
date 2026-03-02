@@ -54,15 +54,17 @@ export function Canvas({
             }}
           >
             <div
-              className="w-full h-full"
+              className="w-full h-full overflow-hidden"
               style={{
                 borderRadius: `${radius}px`,
-                backgroundImage: `url(${foregroundImage})`,
-                backgroundSize: 'contain',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
               }}
-            />
+            >
+              <img
+                src={foregroundImage}
+                alt="Uploaded content"
+                className="w-full h-full object-contain"
+              />
+            </div>
           </div>
         </div>
       ) : (
