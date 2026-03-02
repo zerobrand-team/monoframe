@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import type { RefObject } from 'react';
 import { UploadCloud } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -49,22 +48,21 @@ export function Canvas({
       {foregroundImage ? (
         <div className="absolute inset-0 flex items-center justify-center p-4">
           <div
-            className="relative w-full h-full overflow-hidden"
+            className="relative w-full h-full transition-transform duration-200"
             style={{
-              borderRadius: `${radius}px`,
+              transform: `scale(${scale})`,
             }}
           >
-            <div 
-              className="relative w-full h-full transition-transform duration-200"
-              style={{ transform: `scale(${scale})`}}
-            >
-              <Image
-                src={foregroundImage}
-                alt="Foreground"
-                fill
-                className="object-contain"
-              />
-            </div>
+            <div
+              className="w-full h-full"
+              style={{
+                borderRadius: `${radius}px`,
+                backgroundImage: `url(${foregroundImage})`,
+                backgroundSize: 'contain',
+                backgroundPosition: 'center',
+                backgroundRepeat: 'no-repeat',
+              }}
+            />
           </div>
         </div>
       ) : (
