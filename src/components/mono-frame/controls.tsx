@@ -8,7 +8,6 @@ import {
   UploadCloud,
   Maximize,
 } from 'lucide-react';
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
@@ -78,28 +77,31 @@ export function Controls({
                     >
                       <UploadCloud className="w-6 h-6" />
                     </Button>
-                    {backgroundOptions.map((opt) => (
-                      <button
-                        key={opt.id}
-                        onClick={() => setBackgroundImage(opt.value)}
-                        className="focus:outline-none focus:ring-2 focus:ring-ring rounded-2xl overflow-hidden aspect-square h-20 w-20 flex-shrink-0 relative group"
-                      >
-                        {opt.type === 'image' ? (
-                          <Image
-                            src={opt.thumbnail}
-                            alt="Background option"
-                            fill
-                            sizes="80px"
-                            className="object-cover transition-transform duration-200 group-hover:scale-105"
-                          />
-                        ) : (
+                    {backgroundOptions.map((opt) => {
+                      const style: React.CSSProperties =
+                        opt.type === 'image'
+                          ? {
+                              backgroundImage: `url(${opt.thumbnail})`,
+                              backgroundSize: 'cover',
+                              backgroundPosition: 'center',
+                            }
+                          : {
+                              background: opt.thumbnail,
+                            };
+
+                      return (
+                        <button
+                          key={opt.id}
+                          onClick={() => setBackgroundImage(opt.value)}
+                          className="focus:outline-none focus:ring-2 focus:ring-ring rounded-2xl overflow-hidden aspect-square h-20 w-20 flex-shrink-0 relative group"
+                        >
                           <div
                             className="w-full h-full transition-transform duration-200 group-hover:scale-105"
-                            style={{ background: opt.thumbnail }}
+                            style={style}
                           />
-                        )}
-                      </button>
-                    ))}
+                        </button>
+                      );
+                    })}
                   </div>
                   <ScrollBar orientation="horizontal" />
                 </ScrollArea>
