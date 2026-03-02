@@ -2,39 +2,39 @@
   "placeholderImages": [
     {
       "id": "bg-1",
-      "description": "Wrinkled Paper Texture",
-      "imageUrl": "https://images.unsplash.com/photo-1533123528344-54e637a5734c?q=80&w=1080",
-      "imageHint": "paper texture"
+      "description": "Abstract Gradient 1",
+      "imageUrl": "https://images.unsplash.com/photo-1635776062360-af423602aff3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMGdyYWRpZW50fGVufDB8fHx8MTc3MjQxOTQ2NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract gradient"
     },
     {
       "id": "bg-2",
-      "description": "Dark Concrete Wall",
-      "imageUrl": "https://images.unsplash.com/photo-1588626998184-2831b0a88a6d?q=80&w=1080",
-      "imageHint": "dark concrete"
+      "description": "Abstract Gradient 2",
+      "imageUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxhYnN0cmFjdCUyMGdyYWRpZW50fGVufDB8fHx8MTc3MjQxOTQ2NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract gradient"
     },
     {
       "id": "bg-3",
-      "description": "White Plaster Texture",
-      "imageUrl": "https://images.unsplash.com/photo-1604147706283-d7119b5b822c?q=80&w=1080",
-      "imageHint": "white texture"
+      "description": "Abstract Gradient 3",
+      "imageUrl": "https://images.unsplash.com/photo-1604076913837-52ab5629fba9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxhYnN0cmFjdCUyMGdyYWRpZW50fGVufDB8fHx8MTc3MjQxOTQ2NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract gradient"
     },
     {
       "id": "bg-4",
-      "description": "Black Textile Fabric",
-      "imageUrl": "https://images.unsplash.com/photo-1552251099-AF5ae931f6d0?q=80&w=1080",
-      "imageHint": "black textile"
+      "description": "Abstract Gradient 4",
+      "imageUrl": "https://images.unsplash.com/photo-1604076913837-52ab5629fba9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxhYnN0cmFjdCUyMGdyYWRpZW50fGVufDB8fHx8MTc3MjQxOTQ2NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract gradient"
     },
     {
       "id": "bg-5",
-      "description": "Geometric Line Pattern",
-      "imageUrl": "https://images.unsplash.com/photo-1563241857-565463773195?q=80&w=1080",
-      "imageHint": "geometric pattern"
+      "description": "Abstract Gradient 5",
+      "imageUrl": "https://images.unsplash.com/photo-1635776062360-af423602aff3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMGdyYWRpZW50fGVufDB8fHx8MTc3MjQxOTQ2NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract gradient"
     },
     {
       "id": "bg-6",
-      "description": "Dark Wood Grain",
-      "imageUrl": "https://images.unsplash.com/photo-1506443432602-ac2dcd7f24b1?q=80&w=1080",
-      "imageHint": "dark wood"
+      "description": "Abstract Gradient 6",
+      "imageUrl": "https://images.unsplash.com/photo-1604076850742-4c7221f3101b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxhYnN0cmFjdCUyMGdyYWRpZW50fGVufDB8fHx8MTc3MjQxOTQ2NXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract gradient"
     }
   ]
 }

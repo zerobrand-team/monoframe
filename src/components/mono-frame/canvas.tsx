@@ -48,23 +48,25 @@ export function Canvas({
       {foregroundImage ? (
         <div className="absolute inset-0 flex items-center justify-center p-4">
           <div
-            className="relative w-full h-full transition-transform duration-200"
+            className="relative flex items-center justify-center w-full h-full transition-transform duration-200"
             style={{
               transform: `scale(${scale})`,
             }}
           >
-            <div
-              className="w-full h-full overflow-hidden"
+            {/* Изменения здесь:
+              1. Убрали div с overflow-hidden
+              2. Перенесли border-radius прямо на <img>
+              3. Заменили w-full h-full на max-w-full max-h-full
+            */}
+            <img
+              src={foregroundImage}
+              alt="Uploaded content"
+              className="max-w-full max-h-full transition-all duration-200 shadow-md"
               style={{
                 borderRadius: `${radius}px`,
+                objectFit: 'contain'
               }}
-            >
-              <img
-                src={foregroundImage}
-                alt="Uploaded content"
-                className="w-full h-full object-contain"
-              />
-            </div>
+            />
           </div>
         </div>
       ) : (
