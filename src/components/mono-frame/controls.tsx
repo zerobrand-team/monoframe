@@ -3,7 +3,7 @@
 import {
   GalleryHorizontal,
   Circle,
-  AspectRatio,
+  Ratio,
   Download,
   UploadCloud,
 } from 'lucide-react';
@@ -52,7 +52,7 @@ export function Controls({
   const mainControls = [
     { name: 'Background', icon: GalleryHorizontal },
     { name: 'Radius', icon: Circle },
-    { name: 'Format', icon: AspectRatio },
+    { name: 'Format', icon: Ratio },
     { name: 'Export', icon: Download, action: handleExport },
   ];
 
