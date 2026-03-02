@@ -3,8 +3,8 @@ import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
-  title: 'StyleSnap',
-  description: 'Add a background and style to your picture in 10 seconds.',
+  title: 'MonoFrame',
+  description: 'A minimalist mobile web editor to frame your images.',
 };
 
 export default function RootLayout({
@@ -14,11 +14,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
-      </head>
+      <head />
       <body className="font-body antialiased">
         {children}
         <Toaster />

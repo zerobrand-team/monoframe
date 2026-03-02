@@ -1,7 +1,9 @@
-import { MainEditor } from '@/components/style-snap/main-editor';
+import { Editor } from '@/components/mono-frame/editor';
 
 export default function Home() {
   return (
-    <MainEditor />
+    <main>
+      <Editor />
+    </main>
   );
 }

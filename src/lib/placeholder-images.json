@@ -2,38 +2,38 @@
   "placeholderImages": [
     {
       "id": "bg-1",
-      "description": "Abstract Gradient",
-      "imageUrl": "https://images.unsplash.com/photo-1672009190560-12e7bade8d09?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxhYnN0cmFjdCUyMGdyYWRpZW50fGVufDB8fHx8MTc3MjQxOTQ2NXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "abstract gradient"
+      "description": "Wrinkled Paper Texture",
+      "imageUrl": "https://images.unsplash.com/photo-1533123528344-54e637a5734c?q=80&w=1080",
+      "imageHint": "paper texture"
     },
     {
       "id": "bg-2",
-      "description": "Minimalist Texture",
-      "imageUrl": "https://images.unsplash.com/photo-1613985964871-dc49867626de?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxtaW5pbWFsaXN0JTIwdGV4dHVyZXxlbnwwfHx8fDE3NzI0MjU2ODh8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "minimalist texture"
+      "description": "Dark Concrete Wall",
+      "imageUrl": "https://images.unsplash.com/photo-1588626998184-2831b0a88a6d?q=80&w=1080",
+      "imageHint": "dark concrete"
     },
     {
       "id": "bg-3",
-      "description": "Urban Cityscape",
-      "imageUrl": "https://images.unsplash.com/photo-1764476751144-7c3c7a2da01a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHx1cmJhbiUyMGNpdHlzY2FwZXxlbnwwfHx8fDE3NzI0NTQ4Nzd8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "urban cityscape"
+      "description": "White Plaster Texture",
+      "imageUrl": "https://images.unsplash.com/photo-1604147706283-d7119b5b822c?q=80&w=1080",
+      "imageHint": "white texture"
     },
     {
       "id": "bg-4",
-      "description": "Serene Nature",
-      "imageUrl": "https://images.unsplash.com/photo-1592976370975-dcc9e764374f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzZXJlbmUlMjBuYXR1cmV8ZW58MHx8fHwxNzcyNDU0ODc3fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "serene nature"
+      "description": "Black Textile Fabric",
+      "imageUrl": "https://images.unsplash.com/photo-1552251099-AF5ae931f6d0?q=80&w=1080",
+      "imageHint": "black textile"
     },
     {
       "id": "bg-5",
-      "description": "Vibrant Pattern",
-      "imageUrl": "https://images.unsplash.com/photo-1723283126778-c16ae4c2b0c9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHx2aWJyYW50JTIwcGF0dGVybnxlbnwwfHx8fDE3NzI0MTgzNDZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "vibrant pattern"
+      "description": "Geometric Line Pattern",
+      "imageUrl": "https://images.unsplash.com/photo-1563241857-565463773195?q=80&w=1080",
+      "imageHint": "geometric pattern"
     },
     {
       "id": "bg-6",
-      "description": "Dark Wood",
-      "imageUrl": "https://images.unsplash.com/photo-1506968430777-bf7784a87f23?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8ZGFyayUyMHdvb2R8ZW58MHx8fHwxNzcyNDU0ODc3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "description": "Dark Wood Grain",
+      "imageUrl": "https://images.unsplash.com/photo-1506443432602-ac2dcd7f24b1?q=80&w=1080",
       "imageHint": "dark wood"
     }
   ]
