@@ -30,12 +30,12 @@ export function Canvas({
 
   const backgroundStyle: React.CSSProperties = {
     aspectRatio,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
   };
 
   if (isUrl) {
     backgroundStyle.backgroundImage = `url(${backgroundImage})`;
+    backgroundStyle.backgroundSize = 'cover';
+    backgroundStyle.backgroundPosition = 'center';
   } else {
     backgroundStyle.background = backgroundImage || '#FFFFFF';
   }
