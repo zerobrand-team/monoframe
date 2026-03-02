@@ -2,6 +2,7 @@
   "placeholderImages": [
     {
       "id": "bg-1",
+<<<<<<< HEAD
       "description": "Dark Teal Abstract Gradient",
       "imageUrl": "https://images.unsplash.com/photo-1519699047748-695fe6a79413?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxkYXJrJTIwdGVhbCUyMGFic3RyYWN0JTIwZ3JhZGllbnR8ZW58MHx8fHwxNzE3NTk0MjE2fDA&ixlib=rb-4.0.3&q=80&w=1080",
       "imageHint": "teal gradient"
@@ -35,6 +36,41 @@
       "description": "Yellow and Blue Gradient",
       "imageUrl": "https://images.unsplash.com/photo-1614850523011-8f49ffc73908?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx5ZWxsb3clMjBibHVlJTIwZ3JhZGllbnR8ZW58MHx8fHwxNzE3NTk0MzgxfDA&ixlib=rb-4.0.3&q=80&w=1080",
       "imageHint": "yellow blue"
+=======
+      "description": "Abstract Gradient 1",
+      "imageUrl": "https://images.unsplash.com/photo-1669295384050-a1d4357bd1d7?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "abstract gradient"
+    },
+    {
+      "id": "bg-2",
+      "description": "Abstract Gradient 2",
+      "imageUrl": "https://images.unsplash.com/photo-1750087215208-9932f60e5953?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "abstract gradient"
+    },
+    {
+      "id": "bg-3",
+      "description": "Abstract Gradient 3",
+      "imageUrl": "https://images.unsplash.com/photo-1548159417-f283998827c1?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "abstract gradient"
+    },
+    {
+      "id": "bg-4",
+      "description": "Abstract Gradient 4",
+      "imageUrl": "https://images.unsplash.com/photo-1529473322929-b204ee21f845?q=80&w=1740&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "abstract gradient"
+    },
+    {
+      "id": "bg-5",
+      "description": "Abstract Gradient 5",
+      "imageUrl": "https://images.unsplash.com/photo-1604076913837-52ab5629fba9?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "abstract gradient"
+    },
+    {
+      "id": "bg-6",
+      "description": "Abstract Gradient 6",
+      "imageUrl": "https://images.unsplash.com/photo-1668450433152-e56d7e8fe4ee?q=80&w=1364&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "imageHint": "abstract gradient"
+>>>>>>> temp-update
     }
   ]
 }

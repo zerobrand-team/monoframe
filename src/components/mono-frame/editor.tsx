@@ -5,6 +5,8 @@ import * as htmlToImage from 'html-to-image';
 import { useToast } from '@/hooks/use-toast';
 import { Canvas } from './canvas';
 import { Controls } from './controls';
+// 1. Добавлен импорт массива фонов
+import { backgroundOptions } from '@/lib/backgrounds'; 
 
 type AspectRatio = '9 / 16' | '16 / 9' | '3 / 4' | '1 / 1';
 
@@ -15,7 +17,8 @@ export function Editor() {
   const backgroundInputRef = useRef<HTMLInputElement>(null);
 
   const [foregroundImage, setForegroundImage] = useState<string | null>(null);
-  const [backgroundImage, setBackgroundImage] = useState<string | null>('linear-gradient(45deg, #F9F9F9, #EAEAEA)');
+  // 2. Установлен первый фон по умолчанию с резервным белым цветом
+  const [backgroundImage, setBackgroundImage] = useState<string | null>(backgroundOptions[0]?.value || '#FFFFFF');
   const [radius, setRadius] = useState(32);
   const [aspectRatio, setAspectRatio] = useState<AspectRatio>('9 / 16');
   const [activeControl, setActiveControl] = useState<string | null>(null);
@@ -55,7 +58,7 @@ export function Editor() {
   };
 
   return (
-    <div className="flex flex-col h-screen w-full bg-gray-100">
+    <div className="flex flex-col h-screen w-full bg-white">
       <input
         type="file"
         ref={foregroundInputRef}
@@ -98,6 +101,7 @@ export function Editor() {
         handleExport={handleExport}
         isImageUploaded={!!foregroundImage}
         backgroundInputRef={backgroundInputRef}
+        onForegroundUpload={() => foregroundInputRef.current?.click()}
       />
     </div>
   );
