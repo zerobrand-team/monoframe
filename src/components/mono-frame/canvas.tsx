@@ -26,26 +26,26 @@ export function Canvas({
   scale,
   onUploadClick,
 }: CanvasProps) {
-  const isBgImage = backgroundImage && (backgroundImage.startsWith('http') || backgroundImage.startsWith('data:'));
+  const isUrl = backgroundImage?.startsWith('http') || backgroundImage?.startsWith('data:');
+
+  const backgroundStyle: React.CSSProperties = {
+    aspectRatio,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+  };
+
+  if (isUrl) {
+    backgroundStyle.backgroundImage = `url(${backgroundImage})`;
+  } else {
+    backgroundStyle.background = backgroundImage || '#FFFFFF';
+  }
 
   return (
     <div
       ref={canvasRef}
-      className="relative shadow-lg overflow-hidden transition-all duration-300 bg-white"
-      style={{ 
-        aspectRatio,
-        ...(!isBgImage && backgroundImage ? { background: backgroundImage } : {})
-      }}
+      className="relative shadow-lg overflow-hidden transition-all duration-300"
+      style={backgroundStyle}
     >
-      {isBgImage && (
-        <Image
-          src={backgroundImage}
-          alt="Background"
-          fill
-          sizes="(max-width: 768px) 100vw, 50vw"
-          className="object-cover"
-        />
-      )}
       {foregroundImage ? (
         <div className="absolute inset-0 flex items-center justify-center p-4">
           <div
@@ -62,7 +62,7 @@ export function Canvas({
                 src={foregroundImage}
                 alt="Foreground"
                 fill
-                className="object-cover"
+                className="object-contain"
               />
             </div>
           </div>
