@@ -150,7 +150,7 @@ export function MainEditor() {
           suggestions={aiSuggestions}
           setSuggestions={setAiSuggestions}
           isLoading={isLoadingAi}
-          setIsLoading={setIsLoading}
+          setIsLoading={setIsLoadingAi}
         />
       )}
     </SidebarProvider>
