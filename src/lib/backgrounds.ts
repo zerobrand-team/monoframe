@@ -25,6 +25,6 @@ const colorAndGradientOptions: BackgroundOption[] = [
 ];
 
 export const backgroundOptions: BackgroundOption[] = [
-  ...colorAndGradientOptions,
   ...imageOptions,
+  ...colorAndGradientOptions,
 ];
