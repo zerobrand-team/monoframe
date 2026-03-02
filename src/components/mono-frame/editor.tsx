@@ -28,7 +28,6 @@ export function Editor() {
         const result = event.target?.result as string;
         if (type === 'foreground') {
           setForegroundImage(result);
-          setActiveControl('Background');
         } else {
           setBackgroundImage(result);
         }
