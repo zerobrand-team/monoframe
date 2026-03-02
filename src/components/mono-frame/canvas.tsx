@@ -53,7 +53,7 @@ export function Canvas({
               src={foregroundImage}
               alt="Foreground"
               fill
-              className="object-contain"
+              className="object-cover"
             />
           </div>
         </div>
