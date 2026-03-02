@@ -13,6 +13,7 @@ type CanvasProps = {
   backgroundImage: string | null;
   radius: number;
   aspectRatio: AspectRatio;
+  scale: number;
   onUploadClick: () => void;
 };
 
@@ -22,15 +23,21 @@ export function Canvas({
   backgroundImage,
   radius,
   aspectRatio,
+  scale,
   onUploadClick,
 }: CanvasProps) {
+  const isBgImage = backgroundImage && (backgroundImage.startsWith('http') || backgroundImage.startsWith('data:'));
+
   return (
     <div
       ref={canvasRef}
       className="relative shadow-lg overflow-hidden transition-all duration-300 bg-white"
-      style={{ aspectRatio }}
+      style={{ 
+        aspectRatio,
+        ...(!isBgImage && backgroundImage ? { background: backgroundImage } : {})
+      }}
     >
-      {backgroundImage && (
+      {isBgImage && (
         <Image
           src={backgroundImage}
           alt="Background"
@@ -40,21 +47,24 @@ export function Canvas({
         />
       )}
       {foregroundImage ? (
-        <div
-          className="absolute inset-0 flex items-center justify-center p-4"
-        >
+        <div className="absolute inset-0 flex items-center justify-center p-4">
           <div
             className="relative w-full h-full overflow-hidden"
             style={{
               borderRadius: `${radius}px`,
             }}
           >
-            <Image
-              src={foregroundImage}
-              alt="Foreground"
-              fill
-              className="object-cover"
-            />
+            <div 
+              className="relative w-full h-full transition-transform duration-200"
+              style={{ transform: `scale(${scale})`}}
+            >
+              <Image
+                src={foregroundImage}
+                alt="Foreground"
+                fill
+                className="object-cover"
+              />
+            </div>
           </div>
         </div>
       ) : (

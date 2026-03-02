@@ -15,10 +15,11 @@ export function Editor() {
   const backgroundInputRef = useRef<HTMLInputElement>(null);
 
   const [foregroundImage, setForegroundImage] = useState<string | null>(null);
-  const [backgroundImage, setBackgroundImage] = useState<string | null>(null);
+  const [backgroundImage, setBackgroundImage] = useState<string | null>('linear-gradient(45deg, #F9F9F9, #EAEAEA)');
   const [radius, setRadius] = useState(32);
   const [aspectRatio, setAspectRatio] = useState<AspectRatio>('9 / 16');
   const [activeControl, setActiveControl] = useState<string | null>(null);
+  const [scale, setScale] = useState(1);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, type: 'foreground' | 'background') => {
     const file = e.target.files?.[0];
@@ -43,7 +44,7 @@ export function Editor() {
     }
 
     try {
-      const dataUrl = await htmlToImage.toPng(canvasRef.current, { quality: 1.0, cacheBust: true });
+      const dataUrl = await htmlToImage.toPng(canvasRef.current, { quality: 1.0, pixelRatio: 2, cacheBust: true });
       const link = document.createElement('a');
       link.download = 'monoframe-export.png';
       link.href = dataUrl;
@@ -78,6 +79,7 @@ export function Editor() {
                 backgroundImage={backgroundImage}
                 radius={radius}
                 aspectRatio={aspectRatio}
+                scale={scale}
                 onUploadClick={() => foregroundInputRef.current?.click()}
             />
         </div>
@@ -88,6 +90,8 @@ export function Editor() {
         setActiveControl={setActiveControl}
         radius={radius}
         setRadius={setRadius}
+        scale={scale}
+        setScale={setScale}
         aspectRatio={aspectRatio}
         setAspectRatio={setAspectRatio}
         setBackgroundImage={setBackgroundImage}
