@@ -46,29 +46,25 @@ export function Canvas({
       style={backgroundStyle}
     >
       {foregroundImage ? (
-        <div className="absolute inset-0 flex items-center justify-center p-4">
-          <div
+         <div className="absolute inset-0 flex items-center justify-center p-4">
+           <div
             className="relative flex items-center justify-center w-full h-full transition-transform duration-200"
             style={{
               transform: `scale(${scale})`,
             }}
           >
-            {/* Изменения здесь:
-              1. Убрали div с overflow-hidden
-              2. Перенесли border-radius прямо на <img>
-              3. Заменили w-full h-full на max-w-full max-h-full
-            */}
-            <img
-              src={foregroundImage}
-              alt="Uploaded content"
-              className="max-w-full max-h-full transition-all duration-200 shadow-md"
+            <div
+              className="w-full h-full bg-cover bg-center"
               style={{
+                backgroundImage: `url(${foregroundImage})`,
+                backgroundSize: 'contain',
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: 'center',
                 borderRadius: `${radius}px`,
-                objectFit: 'contain'
               }}
             />
           </div>
-        </div>
+         </div>
       ) : (
         <div className="absolute inset-0 flex flex-col items-center justify-center text-muted-foreground p-8 text-center">
           <UploadCloud className="w-16 h-16 mb-4 text-gray-300" />

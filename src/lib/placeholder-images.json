@@ -2,39 +2,39 @@
   "placeholderImages": [
     {
       "id": "bg-1",
-      "description": "Abstract Gradient 1",
-      "imageUrl": "https://images.unsplash.com/photo-1635776062360-af423602aff3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMGdyYWRpZW50fGVufDB8fHx8MTc3MjQxOTQ2NXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "abstract gradient"
+      "description": "Dark Teal Abstract Gradient",
+      "imageUrl": "https://images.unsplash.com/photo-1519699047748-695fe6a79413?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxkYXJrJTIwdGVhbCUyMGFic3RyYWN0JTIwZ3JhZGllbnR8ZW58MHx8fHwxNzE3NTk0MjE2fDA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageHint": "teal gradient"
     },
     {
       "id": "bg-2",
-      "description": "Abstract Gradient 2",
-      "imageUrl": "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxhYnN0cmFjdCUyMGdyYWRpZW50fGVufDB8fHx8MTc3MjQxOTQ2NXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "abstract gradient"
+      "description": "Colorful Gradient",
+      "imageUrl": "https://images.unsplash.com/photo-1579546929518-9e396f3cc809?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjb2xvcmZ1bCUyMGdyYWRpZW50fGVufDB8fHx8MTcxNzU5NDI4N3ww&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageHint": "colorful gradient"
     },
     {
       "id": "bg-3",
-      "description": "Abstract Gradient 3",
-      "imageUrl": "https://images.unsplash.com/photo-1604076913837-52ab5629fba9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxhYnN0cmFjdCUyMGdyYWRpZW50fGVufDB8fHx8MTc3MjQxOTQ2NXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "abstract gradient"
+      "description": "Yellow and Purple Gradient",
+      "imageUrl": "https://images.unsplash.com/photo-1557682250-33bd709cbe85?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx5ZWxsb3clMjBwdXJwbGUlMjBncmFkaWVudHxlbnwwfHx8fDE3MTc1OTQzMTB8MA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageHint": "yellow purple"
     },
     {
       "id": "bg-4",
-      "description": "Abstract Gradient 4",
-      "imageUrl": "https://images.unsplash.com/photo-1604076913837-52ab5629fba9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw2fHxhYnN0cmFjdCUyMGdyYWRpZW50fGVufDB8fHx8MTc3MjQxOTQ2NXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "abstract gradient"
+      "description": "Dark Green and Purple Gradient",
+      "imageUrl": "https://images.unsplash.com/photo-1557683304-679a7a6c5f49?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxkYXJrJTIwZ3JlZW4lMjBwdXJwbGUlMjBncmFkaWVudHxlbnwwfHx8fDE3MTc1OTQzMzV8MA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageHint": "green purple"
     },
     {
       "id": "bg-5",
-      "description": "Abstract Gradient 5",
-      "imageUrl": "https://images.unsplash.com/photo-1635776062360-af423602aff3?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMGdyYWRpZW50fGVufDB8fHx8MTc3MjQxOTQ2NXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "abstract gradient"
+      "description": "Green, Blue, and Black Gradient",
+      "imageUrl": "https://images.unsplash.com/photo-1557683316-9a5c9f5e2d78?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxncmVlbiUyMGJsdWUlMjBibGFjayUyMGdyYWRpZW50fGVufDB8fHx8fDE3MTc1OTQzNTV8MA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageHint": "green blue"
     },
     {
       "id": "bg-6",
-      "description": "Abstract Gradient 6",
-      "imageUrl": "https://images.unsplash.com/photo-1604076850742-4c7221f3101b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxhYnN0cmFjdCUyMGdyYWRpZW50fGVufDB8fHx8MTc3MjQxOTQ2NXww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "abstract gradient"
+      "description": "Yellow and Blue Gradient",
+      "imageUrl": "https://images.unsplash.com/photo-1614850523011-8f49ffc73908?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx5ZWxsb3clMjBibHVlJTIwZ3JhZGllbnR8ZW58MHx8fHwxNzE3NTk0MzgxfDA&ixlib=rb-4.0.3&q=80&w=1080",
+      "imageHint": "yellow blue"
     }
   ]
 }
