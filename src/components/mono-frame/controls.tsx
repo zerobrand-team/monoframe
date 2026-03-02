@@ -81,8 +81,8 @@ export function Controls({
                           src={img.imageUrl}
                           alt={img.description}
                           fill
-                          sizes="10vw"
-                          className="object-cover transition-transform group-hover:scale-105"
+                          sizes="80px"
+                          className="object-cover transition-transform duration-200 group-hover:scale-105"
                         />
                       </button>
                     ))}
