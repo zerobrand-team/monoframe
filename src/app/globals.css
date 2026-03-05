@@ -4,14 +4,18 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%; /* #FFFFFF */
-    --foreground: 0 0% 7%; /* #111111 */
+    --background: 0 0% 100%;
+    /* #FFFFFF */
+    --foreground: 0 0% 7%;
+    /* #111111 */
     --card: 0 0% 100%;
     --card-foreground: 0 0% 7%;
     --popover: 0 0% 100%;
     --popover-foreground: 0 0% 7%;
-    --primary: 0 0% 7%; /* #111111 */
-    --primary-foreground: 0 0% 98%; /* Almost white */
+    --primary: 0 0% 7%;
+    /* #111111 */
+    --primary-foreground: 0 0% 98%;
+    /* Almost white */
     --secondary: 0 0% 95%;
     --secondary-foreground: 0 0% 7%;
     --muted: 0 0% 95%;
@@ -20,7 +24,8 @@
     --accent-foreground: 0 0% 7%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 92%; /* #EAEAEA */
+    --border: 0 0% 92%;
+    /* #EAEAEA */
     --input: 0 0% 92%;
     --ring: 0 0% 7%;
     --radius: 1rem;
@@ -53,14 +58,26 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
 }
 
 /* Hide Next.js dev indicators/badges */
-nextjs-portal, 
+nextjs-portal,
 #nextjs-portal,
 [data-nextjs-toast-wrapper] {
   display: none !important;
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }

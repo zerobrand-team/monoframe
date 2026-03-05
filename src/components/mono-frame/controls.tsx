@@ -254,7 +254,7 @@ export function Controls({
 
         <div
           className={cn(
-            'grid grid-cols-6 items-center py-2 px-2 gap-1',
+            'flex items-center py-2 px-2 overflow-x-auto no-scrollbar',
             activeControl && 'border-t border-border'
           )}
         >
@@ -263,7 +263,7 @@ export function Controls({
               key={control.name}
               variant="ghost"
               className={cn(
-                'flex flex-col items-center justify-center h-auto gap-1 rounded-xl py-3 px-0 w-full flex-shrink-0',
+                'flex flex-col items-center justify-center h-auto gap-1 rounded-xl py-3 px-2 min-w-[80px] flex-shrink-0',
                 activeControl === control.name
                   ? 'text-primary bg-gray-50'
                   : isImageUploaded

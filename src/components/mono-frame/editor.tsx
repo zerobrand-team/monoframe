@@ -7,6 +7,7 @@ import { Canvas } from './canvas';
 import { Controls } from './controls';
 import { backgroundOptions } from '@/lib/backgrounds';
 import { Loader2 } from 'lucide-react';
+import { cn } from '@/lib/utils';
 
 type AspectRatio = '9 / 16' | '16 / 9' | '3 / 4' | '1 / 1';
 
@@ -33,17 +34,22 @@ export function Editor() {
     const file = e.target.files?.[0];
     if (file) {
       const isVideo = file.type.startsWith('video/');
-      const reader = new FileReader();
-      reader.onload = (event) => {
-        const result = event.target?.result as string;
-        if (type === 'foreground') {
-          setForegroundImage(result);
-          setForegroundType(isVideo ? 'video' : 'image');
-        } else {
-          setBackgroundImage(result);
+      const url = URL.createObjectURL(file);
+
+      if (type === 'foreground') {
+        // Revoke old URL if it exists
+        if (foregroundImage && foregroundImage.startsWith('blob:')) {
+          URL.revokeObjectURL(foregroundImage);
         }
-      };
-      reader.readAsDataURL(file);
+        setForegroundImage(url);
+        setForegroundType(isVideo ? 'video' : 'image');
+      } else {
+        // Revoke old URL if it exists
+        if (backgroundImage && backgroundImage.startsWith('blob:')) {
+          URL.revokeObjectURL(backgroundImage);
+        }
+        setBackgroundImage(url);
+      }
     }
   };
 
@@ -58,7 +64,6 @@ export function Editor() {
     try {
       if (foregroundType === 'video' && foregroundImage) {
         setIsExporting(true);
-        toast({ title: 'Rendering Video', description: 'Please wait, exporting in real-time...' });
         let isRunning = true;
 
         try {
@@ -272,7 +277,12 @@ export function Editor() {
         accept="image/png, image/jpeg, image/webp"
       />
 
-      <div className="flex-1 flex items-center justify-center p-4 sm:p-8">
+      <div className={cn(
+        "flex-1 flex justify-center p-4 sm:p-8 overflow-hidden",
+        aspectRatio === '9 / 16'
+          ? "items-start pt-6 sm:items-center sm:pt-0"
+          : "items-center"
+      )}>
         <div className="w-full max-w-sm">
           <Canvas
             canvasRef={canvasRef}
