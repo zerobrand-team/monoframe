@@ -245,20 +245,125 @@ export function Editor() {
           setTimeout(() => setExportProgress(0), 500); // Reset progress after animation
         }
       } else {
-        // For images: use html-to-image to capture the canvas with background and borders
+        // For images: use manual canvas drawing (same as video) to bypass html-to-image Safari issues
         setIsExporting(true);
 
         try {
-          // Use toBlob for better compatibility with large files on mobile/Safari
-          const blob = await htmlToImage.toBlob(canvasRef.current!, {
-            quality: 1.0,
-            pixelRatio: 3, // Higher quality for images
-            cacheBust: true,
-            skipAutoScale: true,
-          });
+          const container = canvasRef.current;
+          if (!container) throw new Error('Container missing');
+          const imgEl = container.querySelector('img');
+          if (!imgEl) throw new Error('Image element missing');
 
-          if (!blob) throw new Error('Failed to generate image');
+          const pr = 3; // Higher pixel ratio for image export
+          const rect = container.getBoundingClientRect();
 
+          const canvas = document.createElement('canvas');
+          canvas.width = rect.width * pr;
+          canvas.height = rect.height * pr;
+          const ctx = canvas.getContext('2d')!;
+
+          // Pre-load background image if any
+          let bgImg: HTMLImageElement | null = null;
+          if (backgroundImage && (backgroundImage.startsWith('http') || backgroundImage.startsWith('data:') || backgroundImage.startsWith('/'))) {
+            bgImg = new Image();
+            bgImg.crossOrigin = 'anonymous';
+            bgImg.src = backgroundImage;
+            await new Promise((r) => { bgImg!.onload = r as any; bgImg!.onerror = r as any; });
+          }
+
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+          // Draw Background
+          if (bgImg) {
+            const aspect = canvas.width / canvas.height;
+            const imgAspect = bgImg.width / bgImg.height;
+            let dx = 0, dy = 0, dw = canvas.width, dh = canvas.height;
+            if (aspect > imgAspect) {
+              dh = canvas.width / imgAspect;
+              dy = (canvas.height - dh) / 2;
+            } else {
+              dw = canvas.height * imgAspect;
+              dx = (canvas.width - dw) / 2;
+            }
+            ctx.drawImage(bgImg, dx, dy, dw, dh);
+          } else {
+            ctx.fillStyle = backgroundImage || '#FFFFFF';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+          }
+
+          // Draw image with scale, border radius and border
+          const vRect = imgEl.getBoundingClientRect();
+          const vx = (vRect.left - rect.left) * pr;
+          const vy = (vRect.top - rect.top) * pr;
+          const vw = vRect.width * pr;
+          const vh = vRect.height * pr;
+          const rb = radius * pr;
+
+          if (vw > 0 && vh > 0) {
+            ctx.save();
+
+            // Draw border
+            if (borderWeight > 0) {
+              const w = borderWeight * pr;
+              const r = parseInt(borderColor.slice(1, 3), 16);
+              const g = parseInt(borderColor.slice(3, 5), 16);
+              const b = parseInt(borderColor.slice(5, 7), 16);
+              ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${borderOpacity / 100})`;
+              ctx.beginPath();
+              ctx.roundRect(vx - w, vy - w, vw + w * 2, vh + w * 2, rb + w);
+              ctx.fill();
+            }
+
+            // Clip inner bounds
+            ctx.beginPath();
+            ctx.roundRect(vx, vy, vw, vh, rb);
+            ctx.clip();
+
+            // Draw natural image to mimic object-contain
+            const nw = imgEl.naturalWidth;
+            const nh = imgEl.naturalHeight;
+            if (nw > 0 && nh > 0) {
+              const va = nw / nh;
+              const ba = vw / vh;
+              let dx = vx, dy = vy, dw = vw, dh = vh;
+              if (va > ba) {
+                dh = vw / va;
+                dy = vy + (vh - dh) / 2;
+              } else {
+                dw = vh * va;
+                dx = vx + (vw - dw) / 2;
+              }
+              ctx.drawImage(imgEl, dx, dy, dw, dh);
+            }
+
+            ctx.restore();
+          }
+
+          // Convert canvas to blob and download
+          const blob = await new Promise<Blob | null>((resolve) => canvas.toBlob(resolve, 'image/png', 1.0));
+          if (!blob) throw new Error('Failed to generate image blob');
+
+          // Fallback to Web Share API for Safari mobile UX (allows "Save Image")
+          if (navigator.share && /Safari/i.test(navigator.userAgent) && !/Chrome/i.test(navigator.userAgent)) {
+            try {
+              const file = new File([blob], 'monoframe-export.png', { type: 'image/png' });
+              await navigator.share({
+                files: [file],
+                title: 'Monoframe Export',
+              });
+              toast({ title: 'Exported!', description: 'Image exported successfully.' });
+              return;
+            } catch (shareError: any) {
+              // If user cancelled, just silently exit without erroring
+              if (shareError.name !== 'AbortError') {
+                console.error('Share failed', shareError);
+              } else {
+                return;
+              }
+            }
+          }
+
+          // Standard Native download
           const url = URL.createObjectURL(blob);
           const link = document.createElement('a');
           link.download = 'monoframe-export.png';
@@ -266,7 +371,6 @@ export function Editor() {
           document.body.appendChild(link);
           link.click();
 
-          // Cleanup
           setTimeout(() => {
             document.body.removeChild(link);
             URL.revokeObjectURL(url);
