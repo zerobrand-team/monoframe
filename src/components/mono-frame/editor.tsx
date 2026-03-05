@@ -119,8 +119,13 @@ export function Editor() {
               const a = document.createElement('a');
               a.href = url;
               a.download = `monoframe-export.${mimeType.includes('mp4') ? 'mp4' : 'webm'}`;
+              document.body.appendChild(a);
               a.click();
-              URL.revokeObjectURL(url);
+
+              setTimeout(() => {
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+              }, 100);
               resolve();
             };
 
@@ -241,18 +246,39 @@ export function Editor() {
         }
       } else {
         // For images: use html-to-image to capture the canvas with background and borders
-        const dataUrl = await htmlToImage.toPng(canvasRef.current, {
-          quality: 1.0,
-          pixelRatio: 2,
-          cacheBust: true,
-          skipAutoScale: true,
-        });
-        const link = document.createElement('a');
-        link.download = 'monoframe-export.png';
-        link.href = dataUrl;
-        link.click();
+        setIsExporting(true);
 
-        toast({ title: 'Exported!', description: 'Image exported as PNG.' });
+        try {
+          // Use toBlob for better compatibility with large files on mobile/Safari
+          const blob = await htmlToImage.toBlob(canvasRef.current!, {
+            quality: 1.0,
+            pixelRatio: 3, // Higher quality for images
+            cacheBust: true,
+            skipAutoScale: true,
+          });
+
+          if (!blob) throw new Error('Failed to generate image');
+
+          const url = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.download = 'monoframe-export.png';
+          link.href = url;
+          document.body.appendChild(link);
+          link.click();
+
+          // Cleanup
+          setTimeout(() => {
+            document.body.removeChild(link);
+            URL.revokeObjectURL(url);
+          }, 100);
+
+          toast({ title: 'Exported!', description: 'Image exported as PNG.' });
+        } catch (err) {
+          console.error('Image export error:', err);
+          throw err;
+        } finally {
+          setIsExporting(false);
+        }
       }
     } catch (err) {
       console.error('Export error:', err);
@@ -327,15 +353,23 @@ export function Editor() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
           <div className="bg-white p-6 rounded-3xl flex flex-col items-center max-w-[280px] w-full text-center shadow-xl">
             <Loader2 className="w-10 h-10 animate-spin text-zinc-900 mb-4" />
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">Exporting Video</h3>
-            <p className="text-sm text-gray-500 mb-4 leading-snug">Please keep this tab open. Rendering in real-time...</p>
-            <div className="w-full bg-gray-100 rounded-full h-2.5 overflow-hidden">
-              <div
-                className="bg-zinc-900 h-2.5 rounded-full transition-all duration-300"
-                style={{ width: `${exportProgress}%` }}
-              />
-            </div>
-            <p className="text-xs font-medium text-gray-700 mt-2">{exportProgress}%</p>
+            <h3 className="text-lg font-semibold text-gray-900 mb-2">
+              {foregroundType === 'video' ? 'Exporting Video' : 'Exporting Image'}
+            </h3>
+            <p className="text-sm text-gray-500 mb-4 leading-snug">
+              {foregroundType === 'video' ? 'Please keep this tab open. Rendering in real-time...' : 'Generating your image...'}
+            </p>
+            {foregroundType === 'video' && (
+              <>
+                <div className="w-full bg-gray-100 rounded-full h-2.5 overflow-hidden">
+                  <div
+                    className="bg-zinc-900 h-2.5 rounded-full transition-all duration-300"
+                    style={{ width: `${exportProgress}%` }}
+                  />
+                </div>
+                <p className="text-xs font-medium text-gray-700 mt-2">{exportProgress}%</p>
+              </>
+            )}
           </div>
         </div>
       )}
