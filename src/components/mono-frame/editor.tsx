@@ -5,8 +5,7 @@ import * as htmlToImage from 'html-to-image';
 import { useToast } from '@/hooks/use-toast';
 import { Canvas } from './canvas';
 import { Controls } from './controls';
-// 1. Добавлен импорт массива фонов
-import { backgroundOptions } from '@/lib/backgrounds'; 
+import { backgroundOptions } from '@/lib/backgrounds';
 
 type AspectRatio = '9 / 16' | '16 / 9' | '3 / 4' | '1 / 1';
 
@@ -17,7 +16,7 @@ export function Editor() {
   const backgroundInputRef = useRef<HTMLInputElement>(null);
 
   const [foregroundImage, setForegroundImage] = useState<string | null>(null);
-  // 2. Установлен первый фон по умолчанию с резервным белым цветом
+  const [foregroundType, setForegroundType] = useState<'image' | 'video' | null>(null);
   const [backgroundImage, setBackgroundImage] = useState<string | null>(backgroundOptions[0]?.value || '#FFFFFF');
   const [radius, setRadius] = useState(32);
   const [aspectRatio, setAspectRatio] = useState<AspectRatio>('9 / 16');
@@ -27,11 +26,13 @@ export function Editor() {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, type: 'foreground' | 'background') => {
     const file = e.target.files?.[0];
     if (file) {
+      const isVideo = file.type.startsWith('video/');
       const reader = new FileReader();
       reader.onload = (event) => {
         const result = event.target?.result as string;
         if (type === 'foreground') {
           setForegroundImage(result);
+          setForegroundType(isVideo ? 'video' : 'image');
         } else {
           setBackgroundImage(result);
         }
@@ -64,7 +65,7 @@ export function Editor() {
         ref={foregroundInputRef}
         onChange={(e) => handleFileChange(e, 'foreground')}
         className="hidden"
-        accept="image/png, image/jpeg, image/webp"
+        accept="image/png, image/jpeg, image/webp, video/mp4, video/webm, video/quicktime"
       />
       <input
         type="file"
@@ -73,18 +74,19 @@ export function Editor() {
         className="hidden"
         accept="image/png, image/jpeg, image/webp"
       />
-      
+
       <div className="flex-1 flex items-center justify-center p-4 sm:p-8">
         <div className="w-full max-w-sm">
-             <Canvas
-                canvasRef={canvasRef}
-                foregroundImage={foregroundImage}
-                backgroundImage={backgroundImage}
-                radius={radius}
-                aspectRatio={aspectRatio}
-                scale={scale}
-                onUploadClick={() => foregroundInputRef.current?.click()}
-            />
+          <Canvas
+            canvasRef={canvasRef}
+            foregroundImage={foregroundImage}
+            foregroundType={foregroundType}
+            backgroundImage={backgroundImage}
+            radius={radius}
+            aspectRatio={aspectRatio}
+            scale={scale}
+            onUploadClick={() => foregroundInputRef.current?.click()}
+          />
         </div>
       </div>
 

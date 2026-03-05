@@ -1,8 +1,7 @@
 'use client';
 
 import type { RefObject } from 'react';
-// Добавил импорт иконки Upload для кнопки
-import { UploadCloud, Upload } from 'lucide-react'; 
+import { ImagePlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 type AspectRatio = '9 / 16' | '16 / 9' | '3 / 4' | '1 / 1';
@@ -10,6 +9,7 @@ type AspectRatio = '9 / 16' | '16 / 9' | '3 / 4' | '1 / 1';
 type CanvasProps = {
   canvasRef: RefObject<HTMLDivElement | null>;
   foregroundImage: string | null;
+  foregroundType: 'image' | 'video' | null;
   backgroundImage: string | null;
   radius: number;
   aspectRatio: AspectRatio;
@@ -20,20 +20,19 @@ type CanvasProps = {
 export function Canvas({
   canvasRef,
   foregroundImage,
+  foregroundType,
   backgroundImage,
   radius,
   aspectRatio,
   scale,
   onUploadClick,
 }: CanvasProps) {
-  // Добавили проверку на '/' для локальных картинок
   const isUrl = backgroundImage?.startsWith('http') || backgroundImage?.startsWith('data:') || backgroundImage?.startsWith('/');
 
   const backgroundStyle: React.CSSProperties = {
     aspectRatio,
   };
 
-  // Применяем выбранный фон ТОЛЬКО если картинка уже загружена
   if (foregroundImage) {
     if (isUrl) {
       backgroundStyle.backgroundImage = `url(${backgroundImage})`;
@@ -43,7 +42,6 @@ export function Canvas({
       backgroundStyle.background = backgroundImage || '#FFFFFF';
     }
   } else {
-    // Жестко ставим белый фон, пока картинки нет
     backgroundStyle.background = '#FFFFFF';
   }
 
@@ -54,48 +52,62 @@ export function Canvas({
       style={backgroundStyle}
     >
       {foregroundImage ? (
-         <div className="absolute inset-0 flex items-center justify-center p-4">
-           <div
+        <div className="absolute inset-0 flex items-center justify-center p-4">
+          <div
             className="relative flex items-center justify-center w-full h-full transition-transform duration-200"
             style={{
               transform: `scale(${scale})`,
             }}
           >
-            {/* Изменения здесь:
-              1. Убрали div с overflow-hidden
-              2. Перенесли border-radius прямо на <img>
-              3. Заменили w-full h-full на max-w-full max-h-full
-            */}
-            <img
-              src={foregroundImage}
-              alt="Uploaded content"
-              className="max-w-full max-h-full transition-all duration-200 shadow-md"
-              style={{
-                backgroundImage: `url(${foregroundImage})`,
-                backgroundSize: 'contain',
-                backgroundRepeat: 'no-repeat',
-                backgroundPosition: 'center',
-                borderRadius: `${radius}px`,
-              }}
-            />
+            {foregroundType === 'video' ? (
+              <video
+                src={foregroundImage}
+                className="max-w-full max-h-full transition-all duration-200 shadow-md"
+                style={{
+                  borderRadius: `${radius}px`,
+                }}
+                autoPlay
+                loop
+                muted
+                playsInline
+              />
+            ) : (
+              <img
+                src={foregroundImage}
+                alt="Uploaded content"
+                className="max-w-full max-h-full transition-all duration-200 shadow-md"
+                style={{
+                  backgroundImage: `url(${foregroundImage})`,
+                  backgroundSize: 'contain',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundPosition: 'center',
+                  borderRadius: `${radius}px`,
+                }}
+              />
+            )}
           </div>
-         </div>
+        </div>
       ) : (
         <div className="absolute inset-0 flex items-center justify-center p-6 bg-white">
-          {/* Убран h-full, добавлен bg-white, padding заменен на py-10 */}
-          <div className="bg-white border-2 border-dashed border-gray-300 rounded-[28px] py-10 px-4 flex flex-col items-center justify-center text-center w-full shadow-sm">
-            <UploadCloud className="w-10 h-10 text-gray-400 mb-2" />
-            
-            <p className="text-lg font-semibold text-gray-900 mb-5">
-              Choose image
-            </p>
-            
-            {/* Темная кнопка с иконкой */}
-            <Button 
-              onClick={onUploadClick} 
+          <div className="border-2 border-dashed border-gray-300 rounded-[28px] py-10 px-4 flex flex-col items-center justify-center text-center w-full">
+            <div className="w-14 h-14 rounded-full bg-gray-100 flex items-center justify-center mb-4">
+              <ImagePlus className="w-6 h-6 text-gray-400" />
+            </div>
+
+            <div className="space-y-0.5 mb-5">
+              <p className="text-lg font-semibold text-gray-800 leading-tight">
+                Add background to your
+              </p>
+              <p className="text-lg font-semibold text-gray-800 leading-tight">
+                image or video
+              </p>
+            </div>
+
+            <Button
+              onClick={onUploadClick}
               className="rounded-xl px-8 py-5 bg-zinc-900 text-white hover:bg-zinc-800 font-medium text-base flex items-center gap-2"
             >
-              <Upload className="w-[18px] h-[18px]" />
+              <ImagePlus className="w-[18px] h-[18px]" />
               Browse File
             </Button>
           </div>

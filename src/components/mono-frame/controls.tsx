@@ -1,12 +1,13 @@
 'use client';
 
 import {
-  GalleryHorizontal,
-  Circle,
-  Ratio,
+  Palette,
+  ScanLine,
+  Maximize2,
+  RectangleHorizontal,
   Download,
   UploadCloud,
-  RefreshCcw, // Заменили Maximize на RefreshCcw
+  RefreshCcw,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
@@ -34,10 +35,10 @@ type ControlsProps = {
 };
 
 const formatOptions: { name: string; ratio: AspectRatioValue }[] = [
-    { name: '9:16', ratio: '9 / 16' },
-    { name: '16:9', ratio: '16 / 9' },
-    { name: '3:4', ratio: '3 / 4' },
-    { name: '1:1', ratio: '1 / 1' },
+  { name: '9:16', ratio: '9 / 16' },
+  { name: '16:9', ratio: '16 / 9' },
+  { name: '3:4', ratio: '3 / 4' },
+  { name: '1:1', ratio: '1 / 1' },
 ];
 
 export function Controls({
@@ -56,23 +57,23 @@ export function Controls({
   onForegroundUpload,
 }: ControlsProps) {
   const mainControls = [
-    { name: 'Background', icon: GalleryHorizontal },
-    { name: 'Radius', icon: Circle },
-    { name: 'Scale', icon: RefreshCcw }, // Здесь иконка в меню тоже обновится для соответствия
-    { name: 'Format', icon: Ratio },
+    { name: 'Background', icon: Palette },
+    { name: 'Radius', icon: ScanLine },
+    { name: 'Scale', icon: Maximize2 },
+    { name: 'Format', icon: RectangleHorizontal },
     { name: 'Export', icon: Download, action: handleExport },
   ];
 
   return (
     <footer className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-sm border-t border-border shadow-[0_-10px_30px_-15px_rgba(0,0,0,0.1)] rounded-t-3xl">
-      <div className="container mx-auto px-0 max-w-md"> {/* Убран px-4 для корректного скролла от края до края */}
+      <div className="container mx-auto px-0 max-w-md">
         {isImageUploaded && activeControl && (
           <div className="h-28 py-2 px-4">
             {activeControl === 'Background' && (
               <div className="w-full h-full flex items-center">
                 <ScrollArea className="w-full whitespace-nowrap">
                   <div className="flex gap-3 py-2">
-                    {/* Кнопка замены картинки с новой иконкой */}
+                    {/* Replace image button */}
                     <Button
                       variant="outline"
                       className="w-20 h-20 flex-shrink-0 rounded-2xl border-dashed border-2 flex flex-col gap-1 text-[11px]"
@@ -82,10 +83,10 @@ export function Controls({
                       Replace
                     </Button>
 
-                    {/* Разделитель */}
+                    {/* Separator */}
                     <div className="w-[1px] h-12 bg-border self-center mx-1 flex-shrink-0" />
 
-                    {/* Кнопка загрузки своего фона */}
+                    {/* Upload custom background button */}
                     <Button
                       variant="outline"
                       className="w-20 h-20 flex-shrink-0 rounded-2xl flex flex-col gap-1 text-[11px]"
@@ -94,18 +95,18 @@ export function Controls({
                       <UploadCloud className="w-5 h-5" />
                       BG
                     </Button>
-                    
+
                     {backgroundOptions.map((opt) => {
                       const style: React.CSSProperties =
                         opt.type === 'image'
                           ? {
-                              backgroundImage: `url(${opt.thumbnail})`,
-                              backgroundSize: 'cover',
-                              backgroundPosition: 'center',
-                            }
+                            backgroundImage: `url(${opt.thumbnail})`,
+                            backgroundSize: 'cover',
+                            backgroundPosition: 'center',
+                          }
                           : {
-                              background: opt.thumbnail,
-                            };
+                            background: opt.thumbnail,
+                          };
 
                       return (
                         <button
@@ -165,7 +166,7 @@ export function Controls({
             )}
           </div>
         )}
-        
+
         <div
           className={cn(
             'flex overflow-x-auto items-center py-2 px-4 gap-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]',
@@ -177,8 +178,13 @@ export function Controls({
               key={control.name}
               variant="ghost"
               className={cn(
-                'flex flex-col items-center justify-center h-auto gap-1 text-gray-500 rounded-xl py-3 px-0 disabled:text-gray-300 w-[84px] flex-shrink-0',
-                activeControl === control.name && 'text-primary bg-gray-50'
+                'flex flex-col items-center justify-center h-auto gap-1 rounded-xl py-3 px-0 w-[84px] flex-shrink-0',
+                activeControl === control.name
+                  ? 'text-primary bg-gray-50'
+                  : isImageUploaded
+                    ? 'text-gray-600'
+                    : 'text-gray-300',
+                'disabled:text-gray-300 disabled:opacity-100'
               )}
               onClick={() => {
                 if (control.action) {

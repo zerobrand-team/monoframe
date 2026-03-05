@@ -1,10 +1,10 @@
-import type {Metadata} from 'next';
+import type { Metadata } from 'next';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
 
 export const metadata: Metadata = {
   title: 'MonoFrame',
-  description: 'A minimalist mobile web editor to frame your images.',
+  description: 'A minimalist mobile web editor to frame your images ro videos.',
 };
 
 export default function RootLayout({
