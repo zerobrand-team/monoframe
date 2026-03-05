@@ -14,6 +14,9 @@ type CanvasProps = {
   radius: number;
   aspectRatio: AspectRatio;
   scale: number;
+  borderWeight: number;
+  borderOpacity: number;
+  borderColor: string;
   onUploadClick: () => void;
 };
 
@@ -25,6 +28,9 @@ export function Canvas({
   radius,
   aspectRatio,
   scale,
+  borderWeight,
+  borderOpacity,
+  borderColor,
   onUploadClick,
 }: CanvasProps) {
   const isUrl = backgroundImage?.startsWith('http') || backgroundImage?.startsWith('data:') || backgroundImage?.startsWith('/');
@@ -45,6 +51,19 @@ export function Canvas({
     backgroundStyle.background = '#FFFFFF';
   }
 
+  // Convert hex to rgba for border opacity
+  const getBorderColorWithOpacity = (hex: string, opacity: number) => {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return `rgba(${r}, ${g}, ${b}, ${opacity / 100})`;
+  };
+
+  const contentStyle: React.CSSProperties = {
+    borderRadius: `${radius}px`,
+    border: borderWeight > 0 ? `${borderWeight}px solid ${getBorderColorWithOpacity(borderColor, borderOpacity)}` : 'none',
+  };
+
   return (
     <div
       ref={canvasRef}
@@ -62,10 +81,8 @@ export function Canvas({
             {foregroundType === 'video' ? (
               <video
                 src={foregroundImage}
-                className="max-w-full max-h-full transition-all duration-200 shadow-md"
-                style={{
-                  borderRadius: `${radius}px`,
-                }}
+                className="max-w-full max-h-full transition-all duration-200 shadow-md object-contain"
+                style={contentStyle}
                 autoPlay
                 loop
                 muted
@@ -75,14 +92,8 @@ export function Canvas({
               <img
                 src={foregroundImage}
                 alt="Uploaded content"
-                className="max-w-full max-h-full transition-all duration-200 shadow-md"
-                style={{
-                  backgroundImage: `url(${foregroundImage})`,
-                  backgroundSize: 'contain',
-                  backgroundRepeat: 'no-repeat',
-                  backgroundPosition: 'center',
-                  borderRadius: `${radius}px`,
-                }}
+                className="max-w-full max-h-full transition-all duration-200 shadow-md object-contain"
+                style={contentStyle}
               />
             )}
           </div>

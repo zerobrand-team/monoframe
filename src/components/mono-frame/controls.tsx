@@ -3,11 +3,14 @@
 import {
   Palette,
   ScanLine,
+  Square,
   Maximize2,
   RectangleHorizontal,
   Download,
   UploadCloud,
   RefreshCcw,
+  Check,
+  Loader2,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
@@ -28,8 +31,15 @@ type ControlsProps = {
   aspectRatio: AspectRatioValue;
   setAspectRatio: (ratio: AspectRatioValue) => void;
   setBackgroundImage: (url: string) => void;
+  borderWeight: number;
+  setBorderWeight: (weight: number) => void;
+  borderOpacity: number;
+  setBorderOpacity: (opacity: number) => void;
+  borderColor: string;
+  setBorderColor: (color: string) => void;
   handleExport: () => void;
   isImageUploaded: boolean;
+  isExporting: boolean;
   backgroundInputRef: RefObject<HTMLInputElement | null>;
   onForegroundUpload: () => void;
 };
@@ -39,6 +49,10 @@ const formatOptions: { name: string; ratio: AspectRatioValue }[] = [
   { name: '16:9', ratio: '16 / 9' },
   { name: '3:4', ratio: '3 / 4' },
   { name: '1:1', ratio: '1 / 1' },
+];
+
+const borderColors = [
+  '#FFFFFF', '#000000'
 ];
 
 export function Controls({
@@ -51,8 +65,15 @@ export function Controls({
   aspectRatio,
   setAspectRatio,
   setBackgroundImage,
+  borderWeight,
+  setBorderWeight,
+  borderOpacity,
+  setBorderOpacity,
+  borderColor,
+  setBorderColor,
   handleExport,
   isImageUploaded,
+  isExporting,
   backgroundInputRef,
   onForegroundUpload,
 }: ControlsProps) {
@@ -61,6 +82,7 @@ export function Controls({
     { name: 'Radius', icon: ScanLine },
     { name: 'Scale', icon: Maximize2 },
     { name: 'Format', icon: RectangleHorizontal },
+    { name: 'Border', icon: Square },
     { name: 'Export', icon: Download, action: handleExport },
   ];
 
@@ -68,7 +90,7 @@ export function Controls({
     <footer className="fixed bottom-0 left-0 right-0 bg-white/80 backdrop-blur-sm border-t border-border shadow-[0_-10px_30px_-15px_rgba(0,0,0,0.1)] rounded-t-3xl">
       <div className="container mx-auto px-0 max-w-md">
         {isImageUploaded && activeControl && (
-          <div className="h-28 py-2 px-4">
+          <div className="h-32 py-3 px-4 flex flex-col justify-center">
             {activeControl === 'Background' && (
               <div className="w-full h-full flex items-center">
                 <ScrollArea className="w-full whitespace-nowrap">
@@ -127,25 +149,35 @@ export function Controls({
               </div>
             )}
             {activeControl === 'Radius' && (
-              <div className="w-full h-full flex items-center justify-center px-4">
-                <Slider
-                  value={[radius]}
-                  onValueChange={([v]) => setRadius(v)}
-                  min={0}
-                  max={200}
-                  step={1}
-                />
+              <div className="w-full h-full flex items-center justify-center px-2">
+                <div className="flex items-center gap-4 w-full">
+                  <span className="text-sm font-semibold text-gray-800 w-16">Radius</span>
+                  <Slider
+                    className="flex-1"
+                    value={[radius]}
+                    onValueChange={([v]) => setRadius(v)}
+                    min={0}
+                    max={200}
+                    step={1}
+                  />
+                  <span className="text-sm font-medium text-gray-500 w-12 text-right">{radius}px</span>
+                </div>
               </div>
             )}
             {activeControl === 'Scale' && (
-              <div className="w-full h-full flex items-center justify-center px-4">
-                <Slider
-                  value={[scale]}
-                  onValueChange={([v]) => setScale(v)}
-                  min={0.5}
-                  max={3}
-                  step={0.1}
-                />
+              <div className="w-full h-full flex items-center justify-center px-2">
+                <div className="flex items-center gap-4 w-full">
+                  <span className="text-sm font-semibold text-gray-800 w-16">Scale</span>
+                  <Slider
+                    className="flex-1"
+                    value={[scale]}
+                    onValueChange={([v]) => setScale(v)}
+                    min={0.5}
+                    max={3}
+                    step={0.1}
+                  />
+                  <span className="text-sm font-medium text-gray-500 w-12 text-right">{scale}x</span>
+                </div>
               </div>
             )}
             {activeControl === 'Format' && (
@@ -164,12 +196,65 @@ export function Controls({
                 ))}
               </div>
             )}
+            {activeControl === 'Border' && (
+              <div className="w-full h-full flex flex-col justify-center gap-4 px-2">
+                <div className="flex flex-col gap-3">
+                  <div className="flex items-center gap-4">
+                    <span className="text-[13px] font-semibold text-gray-800 w-16">Opacity</span>
+                    <Slider
+                      className="flex-1"
+                      value={[borderOpacity]}
+                      onValueChange={([v]) => setBorderOpacity(v)}
+                      min={0}
+                      max={100}
+                      step={1}
+                    />
+                    <span className="text-[13px] font-medium text-gray-500 w-10 text-right">{borderOpacity}%</span>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <span className="text-[13px] font-semibold text-gray-800 w-16">Weight</span>
+                    <Slider
+                      className="flex-1"
+                      value={[borderWeight]}
+                      onValueChange={([v]) => setBorderWeight(v)}
+                      min={0}
+                      max={40}
+                      step={1}
+                    />
+                    <span className="text-[13px] font-medium text-gray-500 w-10 text-right">{borderWeight}px</span>
+                  </div>
+                </div>
+                <div className="flex gap-4 items-center pt-2">
+                  {borderColors.map((color) => (
+                    <button
+                      key={color}
+                      onClick={() => setBorderColor(color)}
+                      className={cn(
+                        "w-8 h-8 rounded-full border border-gray-300 flex-shrink-0 flex items-center justify-center transition-transform hover:scale-105"
+                      )}
+                      style={{ backgroundColor: color }}
+                      aria-label={`Border color ${color}`}
+                    >
+                      {borderColor === color && (
+                        <Check
+                          className={cn(
+                            "w-5 h-5",
+                            color === '#FFFFFF' ? "text-black" : "text-white"
+                          )}
+                          strokeWidth={3}
+                        />
+                      )}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
         )}
 
         <div
           className={cn(
-            'flex overflow-x-auto items-center py-2 px-4 gap-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]',
+            'grid grid-cols-6 items-center py-2 px-2 gap-1',
             activeControl && 'border-t border-border'
           )}
         >
@@ -178,7 +263,7 @@ export function Controls({
               key={control.name}
               variant="ghost"
               className={cn(
-                'flex flex-col items-center justify-center h-auto gap-1 rounded-xl py-3 px-0 w-[84px] flex-shrink-0',
+                'flex flex-col items-center justify-center h-auto gap-1 rounded-xl py-3 px-0 w-full flex-shrink-0',
                 activeControl === control.name
                   ? 'text-primary bg-gray-50'
                   : isImageUploaded
@@ -195,10 +280,16 @@ export function Controls({
                   );
                 }
               }}
-              disabled={!isImageUploaded && control.name !== 'Export'}
+              disabled={(!isImageUploaded && control.name !== 'Export') || isExporting}
             >
-              <control.icon className="w-5 h-5" />
-              <span className="text-[11px] font-medium">{control.name}</span>
+              {control.name === 'Export' && isExporting ? (
+                <Loader2 className="w-5 h-5 animate-spin" />
+              ) : (
+                <control.icon className="w-5 h-5" />
+              )}
+              <span className="text-[11px] font-medium">
+                {control.name === 'Export' && isExporting ? 'Saving...' : control.name}
+              </span>
             </Button>
           ))}
         </div>
