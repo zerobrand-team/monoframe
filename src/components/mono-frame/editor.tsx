@@ -71,8 +71,10 @@ export function Editor() {
           const videoEl = container.querySelector('video');
           if (!videoEl) throw new Error('Video element missing');
 
-          const pr = 1.5; // Slightly lower pixel ratio for smoother rendering
           const rect = container.getBoundingClientRect();
+          // Dynamically scale pr so canvas width doesn't exceed ~1080px (to prevent frame drops/lag)
+          let pr = 1080 / rect.width;
+          pr = Math.max(1, Math.min(pr, 3)); // Clamp between 1 and 3
 
           const canvas = document.createElement('canvas');
           canvas.width = rect.width * pr;
@@ -106,7 +108,8 @@ export function Editor() {
             }
           }
 
-          const recorder = new MediaRecorder(stream, { mimeType, videoBitsPerSecond: 8000000 });
+          // Use 15 Mbps - high enough for good quality, low enough to prevent OOM errors on mobile
+          const recorder = new MediaRecorder(stream, { mimeType, videoBitsPerSecond: 15000000 });
           const chunks: Blob[] = [];
           recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
 
