@@ -410,6 +410,10 @@ export function Editor() {
         accept="image/png, image/jpeg, image/webp"
       />
 
+      <div className="absolute top-6 left-6 z-10 select-none pointer-events-none">
+        <img src="/monoframe.png" alt="MonoFrame" className="h-8 w-auto" />
+      </div>
+
       <div className={cn(
         "flex-1 flex justify-center p-4 sm:p-8 overflow-hidden",
         aspectRatio === '9 / 16'
