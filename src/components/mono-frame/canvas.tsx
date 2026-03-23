@@ -3,6 +3,7 @@
 import type { RefObject } from 'react';
 import { ImagePlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
 
 type AspectRatio = '9 / 16' | '16 / 9' | '3 / 4' | '1 / 1';
 
@@ -59,6 +60,8 @@ export function Canvas({
     return `rgba(${r}, ${g}, ${b}, ${opacity / 100})`;
   };
 
+  const isLightBackground = backgroundImage === '#FFFFFF' || backgroundImage === '#f3f4f6';
+
   const contentStyle: React.CSSProperties = {
     borderRadius: `${radius}px`,
     border: borderWeight > 0 ? `${borderWeight}px solid ${getBorderColorWithOpacity(borderColor, borderOpacity)}` : 'none',
@@ -70,6 +73,22 @@ export function Canvas({
       className="relative overflow-hidden transition-all duration-300"
       style={backgroundStyle}
     >
+      {foregroundImage && (
+        <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center opacity-25 z-0 pointer-events-none">
+          <img 
+            src="/monoframe.png" 
+            alt="MonoFrame" 
+            className={cn("h-[14px] w-auto", !isLightBackground && "brightness-0 invert")} 
+          />
+          <span className={cn(
+            "text-[10px] sm:text-[11px] font-normal tracking-tight",
+            isLightBackground ? "text-black" : "text-white"
+          )}>
+            monoframe.zerobrand.xyz
+          </span>
+        </div>
+      )}
+
       {foregroundImage ? (
         <div className="absolute inset-0 flex items-center justify-center p-4">
           <div

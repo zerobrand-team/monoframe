@@ -62,6 +62,12 @@ export function Editor() {
     if (isExporting) return;
 
     try {
+      const isLightBackground = backgroundImage === '#FFFFFF' || backgroundImage === '#f3f4f6';
+      const logoImg = new Image();
+      logoImg.crossOrigin = 'anonymous';
+      logoImg.src = '/monoframe.png';
+      await new Promise((r) => { logoImg.onload = r as any; logoImg.onerror = r as any; });
+
       if (foregroundType === 'video' && foregroundImage) {
         setIsExporting(true);
         let isRunning = true;
@@ -160,6 +166,34 @@ export function Editor() {
               } else {
                 ctx.fillStyle = backgroundImage || '#FFFFFF';
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
+              }
+
+              if (logoImg && logoImg.width > 0) {
+                const wmPadding = 16 * pr;
+                const logoH = 14 * pr;
+                const logoW = (logoImg.width / logoImg.height) * logoH;
+
+                ctx.save();
+                ctx.globalAlpha = 0.2;
+                if (!isLightBackground) {
+                  ctx.filter = 'invert(1) brightness(2)';
+                }
+                const wmY = canvas.height - wmPadding - logoH;
+                ctx.drawImage(logoImg, wmPadding, wmY, logoW, logoH);
+                ctx.restore();
+
+                ctx.save();
+                ctx.globalAlpha = 0.2;
+                if ('letterSpacing' in ctx) {
+                  (ctx as any).letterSpacing = '-0.5px';
+                }
+                ctx.font = `400 ${10 * pr}px sans-serif`;
+                ctx.fillStyle = isLightBackground ? '#000000' : '#FFFFFF';
+                ctx.textAlign = 'right';
+                ctx.textBaseline = 'middle';
+                const textY = wmY + (logoH / 2);
+                ctx.fillText('monoframe.zerobrand.xyz', canvas.width - wmPadding, textY);
+                ctx.restore();
               }
 
               // Draw video with scale, border radius and border
@@ -292,6 +326,34 @@ export function Editor() {
           } else {
             ctx.fillStyle = backgroundImage || '#FFFFFF';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
+          }
+
+          if (logoImg && logoImg.width > 0) {
+            const wmPadding = 16 * pr;
+            const logoH = 14 * pr;
+            const logoW = (logoImg.width / logoImg.height) * logoH;
+
+            ctx.save();
+            ctx.globalAlpha = 0.2;
+            if (!isLightBackground) {
+              ctx.filter = 'invert(1) brightness(2)';
+            }
+            const wmY = canvas.height - wmPadding - logoH;
+            ctx.drawImage(logoImg, wmPadding, wmY, logoW, logoH);
+            ctx.restore();
+
+            ctx.save();
+            ctx.globalAlpha = 0.2;
+            if ('letterSpacing' in ctx) {
+              (ctx as any).letterSpacing = '-0.5px';
+            }
+            ctx.font = `400 ${10 * pr}px sans-serif`;
+            ctx.fillStyle = isLightBackground ? '#000000' : '#FFFFFF';
+            ctx.textAlign = 'right';
+            ctx.textBaseline = 'middle';
+            const textY = wmY + (logoH / 2);
+            ctx.fillText('monoframe.zerobrand.xyz', canvas.width - wmPadding, textY);
+            ctx.restore();
           }
 
           // Draw image with scale, border radius and border
