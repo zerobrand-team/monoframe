@@ -83,7 +83,7 @@ export function Editor() {
 
           // Pre-load background image if any
           let bgImg: HTMLImageElement | null = null;
-          if (backgroundImage && (backgroundImage.startsWith('http') || backgroundImage.startsWith('data:') || backgroundImage.startsWith('/'))) {
+          if (backgroundImage && (backgroundImage.startsWith('http') || backgroundImage.startsWith('blob:') || backgroundImage.startsWith('data:') || backgroundImage.startsWith('/'))) {
             bgImg = new Image();
             bgImg.crossOrigin = 'anonymous';
             bgImg.src = backgroundImage;
@@ -267,7 +267,7 @@ export function Editor() {
 
           // Pre-load background image if any
           let bgImg: HTMLImageElement | null = null;
-          if (backgroundImage && (backgroundImage.startsWith('http') || backgroundImage.startsWith('data:') || backgroundImage.startsWith('/'))) {
+          if (backgroundImage && (backgroundImage.startsWith('http') || backgroundImage.startsWith('blob:') || backgroundImage.startsWith('data:') || backgroundImage.startsWith('/'))) {
             bgImg = new Image();
             bgImg.crossOrigin = 'anonymous';
             bgImg.src = backgroundImage;

@@ -33,7 +33,7 @@ export function Canvas({
   borderColor,
   onUploadClick,
 }: CanvasProps) {
-  const isUrl = backgroundImage?.startsWith('http') || backgroundImage?.startsWith('data:') || backgroundImage?.startsWith('/');
+  const isUrl = backgroundImage?.startsWith('http') || backgroundImage?.startsWith('blob:') || backgroundImage?.startsWith('data:') || backgroundImage?.startsWith('/');
 
   const backgroundStyle: React.CSSProperties = {
     aspectRatio,

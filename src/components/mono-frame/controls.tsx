@@ -79,9 +79,9 @@ export function Controls({
 }: ControlsProps) {
   const mainControls = [
     { name: 'Background', icon: Palette },
-    { name: 'Radius', icon: ScanLine },
-    { name: 'Scale', icon: Maximize2 },
     { name: 'Format', icon: RectangleHorizontal },
+    { name: 'Scale', icon: Maximize2 },
+    { name: 'Radius', icon: ScanLine },
     { name: 'Border', icon: Square },
     { name: 'Export', icon: Download, action: handleExport },
   ];
@@ -94,7 +94,7 @@ export function Controls({
             {activeControl === 'Background' && (
               <div className="w-full h-full flex items-center">
                 <ScrollArea className="w-full whitespace-nowrap">
-                  <div className="flex gap-3 py-2">
+                  <div className="flex gap-3 py-2 px-1">
                     {/* Replace image button */}
                     <Button
                       variant="outline"
@@ -173,8 +173,8 @@ export function Controls({
                     value={[scale]}
                     onValueChange={([v]) => setScale(v)}
                     min={0.5}
-                    max={3}
-                    step={0.1}
+                    max={1}
+                    step={0.01}
                   />
                   <span className="text-sm font-medium text-gray-500 w-12 text-right">{scale}x</span>
                 </div>

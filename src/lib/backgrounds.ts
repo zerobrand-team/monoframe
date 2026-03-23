@@ -15,8 +15,10 @@ const imageOptions: BackgroundOption[] = PlaceHolderImages.map((img: ImagePlaceh
 }));
 
 const colorAndGradientOptions: BackgroundOption[] = [
-  { id: 'grad-1', type: 'gradient', value: 'linear-gradient(45deg, #F9F9F9, #EAEAEA)', thumbnail: 'linear-gradient(45deg, #F9F9F9, #EAEAEA)' },
   { id: 'color-white', type: 'color', value: '#FFFFFF', thumbnail: '#FFFFFF' },
+  { id: 'color-lightgray', type: 'color', value: '#f3f4f6', thumbnail: '#f3f4f6' },
+  { id: 'color-gray', type: 'color', value: '#9ca3af', thumbnail: '#9ca3af' },
+  { id: 'color-black', type: 'color', value: '#000000', thumbnail: '#000000' },
 ];
 
 export const backgroundOptions: BackgroundOption[] = [
