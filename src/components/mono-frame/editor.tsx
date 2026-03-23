@@ -410,11 +410,13 @@ export function Editor() {
         accept="image/png, image/jpeg, image/webp"
       />
 
-      <div className="absolute top-8 left-0 right-0 flex justify-center z-10 select-none pointer-events-none px-4 sm:px-8">
-        <div className="w-full max-w-sm">
-          <img src="/monoframe.png" alt="MonoFrame" className="h-[18px] w-auto" />
+      {!foregroundImage && (
+        <div className="absolute top-8 left-0 right-0 flex justify-center z-10 select-none pointer-events-none px-4 sm:px-8">
+          <div className="w-full max-w-sm">
+            <img src="/monoframe.png" alt="MonoFrame" className="h-[18px] w-auto" />
+          </div>
         </div>
-      </div>
+      )}
 
       <div className={cn(
         "flex-1 flex justify-center p-4 sm:p-8 overflow-hidden",
