@@ -412,8 +412,8 @@ export function Editor() {
 
       {!foregroundImage && (
         <div className="absolute top-8 left-0 right-0 flex justify-center z-10 select-none pointer-events-none px-4 sm:px-8">
-          <div className="w-full max-w-sm">
-            <img src="/monoframe.png" alt="MonoFrame" className="h-[18px] w-auto" />
+          <div className="w-full max-w-sm pl-6">
+            <img src="/monoframe.png" alt="MonoFrame" className="h-[22px] w-auto" />
           </div>
         </div>
       )}
