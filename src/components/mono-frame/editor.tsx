@@ -410,8 +410,10 @@ export function Editor() {
         accept="image/png, image/jpeg, image/webp"
       />
 
-      <div className="absolute top-6 left-6 z-10 select-none pointer-events-none">
-        <img src="/monoframe.png" alt="MonoFrame" className="h-8 w-auto" />
+      <div className="absolute top-8 left-0 right-0 flex justify-center z-10 select-none pointer-events-none px-4 sm:px-8">
+        <div className="w-full max-w-sm">
+          <img src="/monoframe.png" alt="MonoFrame" className="h-[18px] w-auto" />
+        </div>
       </div>
 
       <div className={cn(
