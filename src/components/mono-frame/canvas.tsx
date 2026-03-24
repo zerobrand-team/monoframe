@@ -19,6 +19,7 @@ type CanvasProps = {
   borderOpacity: number;
   borderColor: string;
   onUploadClick: () => void;
+  showWatermark: boolean;
 };
 
 export function Canvas({
@@ -33,6 +34,7 @@ export function Canvas({
   borderOpacity,
   borderColor,
   onUploadClick,
+  showWatermark,
 }: CanvasProps) {
   const isUrl = backgroundImage?.startsWith('http') || backgroundImage?.startsWith('blob:') || backgroundImage?.startsWith('data:') || backgroundImage?.startsWith('/');
 
@@ -73,19 +75,18 @@ export function Canvas({
       className="relative overflow-hidden transition-all duration-300"
       style={backgroundStyle}
     >
-      {foregroundImage && (
+      {foregroundImage && showWatermark && (
         <div className="absolute bottom-4 left-4 right-4 flex justify-between items-center opacity-25 z-0 pointer-events-none">
           <img 
-            src="/monoframe.png" 
+            src="/monoframe-logo.svg" 
             alt="MonoFrame" 
-            className={cn("h-[14px] w-auto", !isLightBackground && "brightness-0 invert")} 
+            className={cn("h-[14px] w-auto", isLightBackground && "brightness-0")} 
           />
-          <span className={cn(
-            "text-[10px] sm:text-[11px] font-normal tracking-tight",
-            isLightBackground ? "text-black" : "text-white"
-          )}>
-            monoframe.zerobrand.xyz
-          </span>
+          <img 
+            src="/monoframe-link.svg" 
+            alt="monoframe.zerobrand.xyz" 
+            className={cn("h-[10px] w-auto", isLightBackground && "brightness-0")} 
+          />
         </div>
       )}
 

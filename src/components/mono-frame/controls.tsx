@@ -11,6 +11,8 @@ import {
   RefreshCcw,
   Check,
   Loader2,
+  Eye,
+  EyeOff,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
@@ -42,6 +44,8 @@ type ControlsProps = {
   isExporting: boolean;
   backgroundInputRef: RefObject<HTMLInputElement | null>;
   onForegroundUpload: () => void;
+  showWatermark: boolean;
+  setShowWatermark: (v: boolean) => void;
 };
 
 const formatOptions: { name: string; ratio: AspectRatioValue }[] = [
@@ -76,6 +80,8 @@ export function Controls({
   isExporting,
   backgroundInputRef,
   onForegroundUpload,
+  showWatermark,
+  setShowWatermark,
 }: ControlsProps) {
   const mainControls = [
     { name: 'Background', icon: Palette },
@@ -83,6 +89,7 @@ export function Controls({
     { name: 'Scale', icon: Maximize2 },
     { name: 'Radius', icon: ScanLine },
     { name: 'Border', icon: Square },
+    { name: 'Watermark', icon: showWatermark ? Eye : EyeOff, action: () => setShowWatermark(!showWatermark) },
     { name: 'Export', icon: Download, action: handleExport },
   ];
 

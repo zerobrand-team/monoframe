@@ -29,6 +29,7 @@ export function Editor() {
   const [borderColor, setBorderColor] = useState('#FFFFFF');
   const [isExporting, setIsExporting] = useState(false);
   const [exportProgress, setExportProgress] = useState(0);
+  const [showWatermark, setShowWatermark] = useState(true);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>, type: 'foreground' | 'background') => {
     const file = e.target.files?.[0];
@@ -65,8 +66,14 @@ export function Editor() {
       const isLightBackground = backgroundImage === '#FFFFFF' || backgroundImage === '#f3f4f6';
       const logoImg = new Image();
       logoImg.crossOrigin = 'anonymous';
-      logoImg.src = '/monoframe.png';
-      await new Promise((r) => { logoImg.onload = r as any; logoImg.onerror = r as any; });
+      logoImg.src = '/monoframe-logo.svg';
+      const p1 = new Promise((r) => { logoImg.onload = r as any; logoImg.onerror = r as any; });
+
+      const linkImg = new Image();
+      linkImg.crossOrigin = 'anonymous';
+      linkImg.src = '/monoframe-link.svg';
+      const p2 = new Promise((r) => { linkImg.onload = r as any; linkImg.onerror = r as any; });
+      await Promise.all([p1, p2]);
 
       if (foregroundType === 'video' && foregroundImage) {
         setIsExporting(true);
@@ -168,31 +175,25 @@ export function Editor() {
                 ctx.fillRect(0, 0, canvas.width, canvas.height);
               }
 
-              if (logoImg && logoImg.width > 0) {
+              if (showWatermark && logoImg && logoImg.width > 0) {
                 const wmPadding = 16 * pr;
                 const logoH = 14 * pr;
                 const logoW = (logoImg.width / logoImg.height) * logoH;
-
+                
                 ctx.save();
                 ctx.globalAlpha = 0.2;
-                if (!isLightBackground) {
-                  ctx.filter = 'invert(1) brightness(2)';
+                if (isLightBackground) {
+                  ctx.filter = 'brightness(0)';
                 }
                 const wmY = canvas.height - wmPadding - logoH;
                 ctx.drawImage(logoImg, wmPadding, wmY, logoW, logoH);
-                ctx.restore();
 
-                ctx.save();
-                ctx.globalAlpha = 0.2;
-                if ('letterSpacing' in ctx) {
-                  (ctx as any).letterSpacing = '-0.5px';
+                if (linkImg && linkImg.width > 0) {
+                  const linkH = 10 * pr;
+                  const linkW = (linkImg.width / linkImg.height) * linkH;
+                  const linkY = wmY + (logoH - linkH) / 2;
+                  ctx.drawImage(linkImg, canvas.width - wmPadding - linkW, linkY, linkW, linkH);
                 }
-                ctx.font = `400 ${10 * pr}px sans-serif`;
-                ctx.fillStyle = isLightBackground ? '#000000' : '#FFFFFF';
-                ctx.textAlign = 'right';
-                ctx.textBaseline = 'middle';
-                const textY = wmY + (logoH / 2);
-                ctx.fillText('monoframe.zerobrand.xyz', canvas.width - wmPadding, textY);
                 ctx.restore();
               }
 
@@ -288,7 +289,7 @@ export function Editor() {
         try {
           const container = canvasRef.current;
           if (!container) throw new Error('Container missing');
-          const imgEl = container.querySelector('img');
+          const imgEl = container.querySelector('img[alt="Uploaded content"]') as HTMLImageElement;
           if (!imgEl) throw new Error('Image element missing');
 
           const pr = 3; // Higher pixel ratio for image export
@@ -328,31 +329,25 @@ export function Editor() {
             ctx.fillRect(0, 0, canvas.width, canvas.height);
           }
 
-          if (logoImg && logoImg.width > 0) {
+          if (showWatermark && logoImg && logoImg.width > 0) {
             const wmPadding = 16 * pr;
             const logoH = 14 * pr;
             const logoW = (logoImg.width / logoImg.height) * logoH;
-
+            
             ctx.save();
             ctx.globalAlpha = 0.2;
-            if (!isLightBackground) {
-              ctx.filter = 'invert(1) brightness(2)';
+            if (isLightBackground) {
+              ctx.filter = 'brightness(0)';
             }
             const wmY = canvas.height - wmPadding - logoH;
             ctx.drawImage(logoImg, wmPadding, wmY, logoW, logoH);
-            ctx.restore();
 
-            ctx.save();
-            ctx.globalAlpha = 0.2;
-            if ('letterSpacing' in ctx) {
-              (ctx as any).letterSpacing = '-0.5px';
+            if (linkImg && linkImg.width > 0) {
+              const linkH = 10 * pr;
+              const linkW = (linkImg.width / linkImg.height) * linkH;
+              const linkY = wmY + (logoH - linkH) / 2;
+              ctx.drawImage(linkImg, canvas.width - wmPadding - linkW, linkY, linkW, linkH);
             }
-            ctx.font = `400 ${10 * pr}px sans-serif`;
-            ctx.fillStyle = isLightBackground ? '#000000' : '#FFFFFF';
-            ctx.textAlign = 'right';
-            ctx.textBaseline = 'middle';
-            const textY = wmY + (logoH / 2);
-            ctx.fillText('monoframe.zerobrand.xyz', canvas.width - wmPadding, textY);
             ctx.restore();
           }
 
@@ -499,6 +494,7 @@ export function Editor() {
             borderOpacity={borderOpacity}
             borderColor={borderColor}
             onUploadClick={() => foregroundInputRef.current?.click()}
+            showWatermark={showWatermark}
           />
         </div>
       </div>
@@ -524,6 +520,8 @@ export function Editor() {
         isExporting={isExporting}
         backgroundInputRef={backgroundInputRef}
         onForegroundUpload={() => foregroundInputRef.current?.click()}
+        showWatermark={showWatermark}
+        setShowWatermark={setShowWatermark}
       />
 
       {isExporting && (
